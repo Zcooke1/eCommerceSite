@@ -13,3 +13,4 @@ namespace eCommerceSite.Models
         [Range(0, 1000)]
         public double Price { get; set; }
     }
+}
