@@ -25,8 +25,8 @@ namespace eCommerceSite.Controllers
             if (ModelState.IsValid)
             {
                 _context.Products.Add(product); // Prepares insert
-                _context.SaveChanges(); // Executes pending insert
-                await _context.AddAsync(product);
+                await _context.SaveChangesAsync(); // Executes pending insert
+                
 
                 ViewData["Message"] = $"{product.ProductName} was added successfully.";
 
