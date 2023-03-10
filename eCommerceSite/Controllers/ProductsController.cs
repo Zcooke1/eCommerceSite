@@ -1,6 +1,7 @@
 ﻿using eCommerceSite.Data;
 using eCommerceSite.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace eCommerceSite.Controllers
 {
@@ -11,6 +12,14 @@ namespace eCommerceSite.Controllers
         public ProductsController(ProductContext context)
         {
             _context = context;
+        }
+
+        public async Task<IActionResult> Index()
+        {
+            List<Product> products = await (from product in _context.Products
+                                            select product).ToListAsync();
+
+            return View(products);
         }
 
         [HttpGet]
@@ -26,7 +35,7 @@ namespace eCommerceSite.Controllers
             {
                 _context.Products.Add(product); // Prepares insert
                 await _context.SaveChangesAsync(); // Executes pending insert
-                
+
 
                 ViewData["Message"] = $"{product.ProductName} was added successfully.";
 
@@ -34,5 +43,6 @@ namespace eCommerceSite.Controllers
             }
             return View(product);
         }
+
     }
 }
