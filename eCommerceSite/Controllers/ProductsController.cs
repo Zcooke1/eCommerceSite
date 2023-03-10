@@ -44,5 +44,17 @@ namespace eCommerceSite.Controllers
             return View(product);
         }
 
+        public async Task<IActionResult> Edit(int id)
+        {
+            Product? productToEdit = await _context.Products.FindAsync(id);
+
+            if(productToEdit != null)
+            {
+                return NotFound();
+            }
+
+            return View(productToEdit);
+        }
+
     }
 }
