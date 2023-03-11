@@ -48,12 +48,27 @@ namespace eCommerceSite.Controllers
         {
             Product? productToEdit = await _context.Products.FindAsync(id);
 
-            if(productToEdit != null)
+            if (productToEdit == null)
             {
                 return NotFound();
             }
 
             return View(productToEdit);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(Product productModel)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Products.Update(productModel);
+                await _context.SaveChangesAsync();
+
+                TempData["Message"] = $"{productModel.ProductName} was updated successfully!";
+                return RedirectToAction("Index");
+            }
+
+            return View(productModel);
         }
 
     }
