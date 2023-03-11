@@ -52,9 +52,12 @@ namespace eCommerceSite.Controllers
 
                 if (m != null)
                 {
+                    HttpContext.Session.SetString("Email", loginModel.Email);
                     return RedirectToAction("Index", "Home");
                 }
-                
+
+                ModelState.AddModelError(string.Empty, "Credentials not found!");
+
             }
             return View(loginModel);
         }
