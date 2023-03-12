@@ -21,13 +21,19 @@ namespace eCommerceSite.Controllers
 
             int currPage = id ?? 1; // Set currPage to id if it has a value, otherwise use 1
 
+            int totalNumofProducts = await _context.Products.CountAsync();
+            double maxNumPages = Math.Ceiling((double)totalNumofProducts / NumProductsToDisplayPerPage);
+            int lastPage = Convert.ToInt32(maxNumPages); //Rounding pages up, to next whole page number
+
+          
+
             List<Product> products = await (from product in _context.Products
                                             select product)
                                             .Skip(NumProductsToDisplayPerPage * (currPage - PageOffset))
                                             .Take(NumProductsToDisplayPerPage)
                                             .ToListAsync();
-
-            return View(products);
+            ProductCatalogViewModel catalogModel = new(products, lastPage, currPage);
+            return View(catalogModel);
         }
 
         [HttpGet]
