@@ -63,7 +63,14 @@ else{
     <h2>There are no games for this page</h2>
 }
 
-@for (int i = 1; i <= Model.LastPage; i++)
-{
-    <p>@i</p>
-}
+<nav aria-label="Product Catalog Pages">
+    <ul class="pagination">
+		    @for (int i = 1; i <= Model.LastPage; i++)
+		    {
+			    <li class="page-item">
+                    <a class="page-link" asp-action="Index" asp-route-id="@i">@i</a>
+                </li>
+		    }
+    </ul>
+</nav>
+
