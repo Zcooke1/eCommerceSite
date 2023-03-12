@@ -65,12 +65,22 @@ else{
 
 <nav aria-label="Product Catalog Pages">
     <ul class="pagination">
-		    @for (int i = 1; i <= Model.LastPage; i++)
-		    {
-			    <li class="page-item">
-                    <a class="page-link" asp-action="Index" asp-route-id="@i">@i</a>
+		@for (int i = 1; i <= Model.LastPage; i++)
+		{
+            if(i == Model.CurrentPage)
+            {
+                <li class="page-item active">
+                    <a class="page-link">@i</a>
                 </li>
-		    }
+            }
+            else
+            {
+               <li class="page-item">
+                   <a class="page-link" asp-action="Index" asp-route-id="@i">@i</a>
+               </li> 
+            }
+            
+		}
     </ul>
 </nav>
 
