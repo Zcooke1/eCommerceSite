@@ -14,10 +14,18 @@ namespace eCommerceSite.Controllers
             _context = context;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? id)
         {
+            const int NumProductsToDisplayPerPage = 3;
+            const int PageOffset = 1;
+
+            int currPage = id ?? 1; // Set currPage to id if it has a value, otherwise use 1
+
             List<Product> products = await (from product in _context.Products
-                                            select product).ToListAsync();
+                                            select product)
+                                            .Skip(NumProductsToDisplayPerPage * (currPage - PageOffset))
+                                            .Take(NumProductsToDisplayPerPage)
+                                            .ToListAsync();
 
             return View(products);
         }
