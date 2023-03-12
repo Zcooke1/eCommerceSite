@@ -17,7 +17,7 @@ namespace eCommerceSite.Controllers
         public async Task<IActionResult> Index(int? id)
         {
             const int NumProductsToDisplayPerPage = 3;
-            const int PageOffset = 1;
+            const int PageOffset = 1; //Need a page offset
 
             int currPage = id ?? 1; // Set currPage to id if it has a value, otherwise use 1
 
